@@ -1,0 +1,43 @@
+Intro:
+
+I graduated in 2023 with a Bachelors in Computer Science and Engineering from N.M.A.M. Institute of Technology, Udupi.
+
+From there I took up a software intern role in Viyaat Agro company.
+Nextjs
+Nodejs
+
+Then i joined Relanto as a technical trainee: Trained in multiple tech stacks
+Angular (frontend)
+Golang  (backend)
+Docker (containerizing applications)
+Jenkins (CICD pipelines)
+Terraform (Provisioning Infra in aws and azure)
+
+After which I transitioned as a Associate soft. eng. in Relanto:
+
+
+
+2) gen-ai-llm-proxy-service:
+
+uses Circuit Breaker logic
+["azureAPIM", "azureOpenAI", "bridgeit(internal model)", "aws bedrock's claude sonnet", "google gemini"]
+
+
+
+Aws lambda is a compute service that lets you run your code without provisioning or managing servers
+
+
+
+---------------------------Chat-recorder-service (context window for precise llm responses)
+
+When an AI chatbot receives a new user question:
+1)Extract conversation_id from the request
+2)Call the search API with filters:
+{
+  "conversation_id": "abc123",
+  "username": "user@example.com"
+}
+3)Retrieve all previous chats in that conversation (from Redis if cached, otherwise PostgreSQL)
+4)(Another service)Build context window with previous Q&A pairs
+5)(Another service)Send context + new question to LLM
+6)Record new Q&A back to this service with same conversation_id
