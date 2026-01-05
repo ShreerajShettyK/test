@@ -11,8 +11,9 @@ func (s *Stack) Push(i int) {
 }
 
 func (s *Stack) Pop() (i int) {
-	toDelete := s.items[len(s.items)-1]
-	s.items = s.items[:len(s.items)-1]
+	lastIndex := len(s.items) - 1
+	toDelete := s.items[lastIndex]
+	s.items = s.items[:lastIndex]
 	return toDelete
 }
 
