@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package calculator;
+
+// Go package path
+option go_package = "grpc-example/proto";
+
+// Calculator service definition
+service Calculator {
+  // Unary RPC: Simple request-response
+  rpc Add(AddRequest) returns (AddResponse) {}
+  
+  // Unary RPC: Another operation
+  rpc Multiply(MultiplyRequest) returns (MultiplyResponse) {}
+  
+  // Server streaming RPC: Server sends multiple responses
+  rpc Fibonacci(FibonacciRequest) returns (stream FibonacciResponse) {}
+}
+
+// Request message for Add operation
+message AddRequest {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+// Response message for Add operation
+message AddResponse {
+  int32 result = 1;
+}
+
+// Request message for Multiply operation
+message MultiplyRequest {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+// Response message for Multiply operation
+message MultiplyResponse {
+  int32 result = 1;
+}
+
+// Request message for Fibonacci sequence
+message FibonacciRequest {
+  int32 n = 1;  // Number of fibonacci numbers to generate
+}
+
+// Response message for Fibonacci sequence
+message FibonacciResponse {
+  int32 value = 1;
+}
