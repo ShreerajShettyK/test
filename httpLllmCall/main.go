@@ -66,7 +66,7 @@ func handlerfunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	reqAI.Header.Set("Content-Type", "application/json")
-	reqAI.Header.Set("Authorization", "Bearer efa8f572b4654f109db93aed83a11ba3")
+	reqAI.Header.Set("Authorization", "Bearer key")
 
 	client := &http.Client{}
 	resp, err := client.Do(reqAI)
