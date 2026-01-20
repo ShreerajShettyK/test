@@ -2,7 +2,7 @@ Intro:
 
 I graduated in 2023 with a Bachelors in Computer Science and Engineering from N.M.A.M. Institute of Technology, Udupi.
 
-From there I took up a software intern role in Viyaat Agro company.
+From there I took up a software intern role in Viyaat Agro company where i worked on an ERP System.
 Nextjs
 Nodejs
 
@@ -15,7 +15,7 @@ Terraform (Provisioning Infra in aws and azure)
 
 After which I transitioned as a Associate soft. eng. in Relanto:
 
-
+Project: gen-ai-learning-assistant
 
 2) gen-ai-llm-proxy-service:
 

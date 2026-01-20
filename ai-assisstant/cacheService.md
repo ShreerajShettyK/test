@@ -12,7 +12,7 @@
 ┌──────────────────────────────────────────────────────────┐
 │  1. Check Cache Service (NEW)                            │
 │     POST /api/cache/query                                │
-│     { "question": "What is Python?", "context": "..." }  │
+│     { "question": "What is Python?", "context": "Last 10 chats summarized(got from chat-recorder)" }  │
 └──────────────────────────────────────────────────────────┘
      │
      ├─── CACHE HIT ────────────┐
@@ -26,7 +26,7 @@
           (No similar question)  │
                                 ▼
                     ┌────────────────────────┐
-                    │  Call LLM API          │
+                    │  Call Proxy Service    │
                     │  (OpenAI/Claude)       │
                     │  (2-5s response time)  │
                     └────────────────────────┘
