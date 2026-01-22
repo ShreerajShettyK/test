@@ -1,163 +1,84 @@
-// package main
-
-// import "fmt"
-
-// func add(x int, y int) int {
-// 	var val int
-// 	for i := 0; i < 10; i++ {
-// 		fmt.Println("Iteration:", i)
-// 		val = i
-// 	}
-// 	if x > y {
-// 		fmt.Println("x greather than y")
-// 	} else if x == y {
-// 		fmt.Println("x equal to y")
-// 	} else {
-// 		fmt.Println("y greather than x")
-// 	}
-// 	return val
-// }
-
-// func addPtr(x *int, y int) int {
-// 	*x += y
-// 	return *x
-// }
-
-// func main() {
-// 	// fmt.Println(add(2, 4))
-
-// 	var num int = 43
-// 	var myPtr *int = &num
-// 	fmt.Println("Address of num:", myPtr)
-// 	fmt.Println("Value of num:", *myPtr)
-
-// 	fmt.Println(addPtr(myPtr, 7))
-
-// 	fmt.Println("New Address of num:", myPtr)
-// 	fmt.Println("New Value of num:", *myPtr)
-
-// 	myArr := [7]int{1, 2, 3, 4, 5}
-// 	for _, num := range myArr {
-// 		fmt.Println(num)
-// 	}
-// }
-
 package main
 
 import "fmt"
 
-// type Speaker interface {
-// 	Speak()
-// }
+// 2. Valid Parentheses (Easy)
 
-// //
-// // 2️⃣ Base struct (reusable behavior)
-// //
-// type Animal struct {
-// 	Name string
-// }
+// Check if brackets are properly balanced: ()[]{}
+// Perfect for practicing stacks (I see you have a stacks folder!)
+// LeetCode #20
 
-// func (a Animal) Speak() {
-// 	fmt.Println("Animal speaks")
-// }
-
-// //
-// // 3️⃣ Derived struct using composition (embedding)
-// //
-// type Dog struct {
-// 	Animal // embedded struct
-// 	Breed  string
-// }
-
-// // This method shadows Animal.Speak()
-// func (d Dog) Speak() {
-// 	fmt.Println("Dog barks")
-// }
-
-// //
-// // 4️⃣ Another struct using the same base
-// //
-// type Cat struct {
-// 	Animal
-// }
-
-// func (c Cat) Speak() {
-// 	fmt.Println("Cat meows")
-// }
-
-// //
-// // 5️⃣ Main function
-// //
-// func main() {
-// 	dog := Dog{
-// 		Animal: Animal{Name: "Bruno"},
-// 		Breed:  "Labrador",
-// 	}
-
-// 	cat := Cat{
-// 		Animal: Animal{Name: "Kitty"},
-// 	}
-
-// 	// Direct method calls
-// 	dog.Speak() // Dog barks
-// 	dog.Animal.Speak()
-
-// 	cat.Speak() // Cat meows
-
-// 	fmt.Println()
-
-// 	// Polymorphism using interface
-// 	animals := []Speaker{dog, cat}
-
-// 	for _, a := range animals {
-// 		a.Speak() // Calls the correct implementation
-// 	}
-// }
-
-// func main() {
-
-// 	//diff in array and slice
-// 	myarr := [5]int{10, 20, 30, 40, 50}
-
-// 	mySlice := []int{1, 2, 3, 4}
-
-// 	fmt.Println(myarr)
-// 	fmt.Println(mySlice)
-
-// 	// make(map[keytype]valuetype) map in golang
-// 	myMap := make(map[int]string)
-// 	myMap[1] = "Hello"
-// }
-
-func main() {
-	ch := make(chan int)
-
-	go func() {
-		ch <- 42
-		ch <- 26
-		close(ch)
-	}()
-	for {
-		val, ok := <-ch
-		if !ok {
-			return
-		}
-		println(val)
-	}
+type stack struct {
+	items []rune
 }
 
-func Add(x int, y int) int {
-	var val int
-	for i := 0; i < 10; i++ {
-		fmt.Println("Iteration:", i)
-		val = i
+func (s *stack) push(i rune) {
+	s.items = append(s.items, i)
+}
+
+func (s *stack) pop() rune {
+	if len(s.items) == 0 {
+		return 0
 	}
-	if x > y {
-		fmt.Println("x greather than y")
-	} else if x == y {
-		fmt.Println("x equal to y")
-	} else {
-		fmt.Println("y greather than x")
+	lastIndex := len(s.items) - 1
+	deletedChar := s.items[lastIndex]
+	s.items = s.items[:lastIndex]
+	return deletedChar
+}
+
+func (s *stack) isEmpty() bool {
+	return len(s.items) == 0
+}
+
+func (s *stack) peek() rune {
+	if len(s.items) == 0 {
+		return 0
 	}
-	return val
+	return s.items[len(s.items)-1]
+}
+
+func isValid(str string) bool {
+	// Map of closing brackets to their matching opening brackets
+	matches := map[rune]rune{
+		')': '(',
+		']': '[',
+		'}': '{',
+	}
+
+	var s stack
+
+	for _, char := range str {
+		// Check if it's a closing bracket
+		if openingBracket, isClosing := matches[char]; isClosing {
+			// If stack is empty or top doesn't match, invalid
+			if s.isEmpty() || s.peek() != openingBracket {
+				return false
+			}
+			s.pop()
+		} else {
+			// It's an opening bracket, push it
+			s.push(char)
+		}
+	}
+
+	// Valid only if all brackets are matched (stack is empty)
+	return s.isEmpty()
+}
+
+func main() {
+	testCases := []string{
+		")(",
+		"()[]{}",
+		"(]",
+		"([)]",
+		"{[]}",
+		"",
+		"(((",
+		")))",
+	}
+
+	for _, test := range testCases {
+		result := isValid(test)
+		fmt.Printf("Input: %-10s -> Valid: %v\n", `"`+test+`"`, result)
+	}
 }

@@ -70,10 +70,12 @@ When a question enters the system, it goes through an embedding model (like Open
 │  Question: How do I install it?"                      │
 │                                                       │
 │        ↓                                              │
-│                                                       │
-│ Vector: [0.82, 0.31, -0.15, 0.44, ...]              │
-│ (This vector now encodes both question AND context)  │
+│     output                                            │
+│ Vector: [0.82, 0.31, -0.15, 0.44, ...]                │
+│ (This vector now encodes both question AND context)   │
 └───────────────────────────────────────────────────────┘
+
+
             Input Text:
                  ↓
         [Embedding Model]
